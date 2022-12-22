@@ -13,11 +13,16 @@ dir_list = os.listdir(imagesPath)
 fullHTML = " "
 allImages = " "
 
-for file in dir_list:
+for index, file in enumerate(dir_list):
+    fadeThisImage = " "
+    if(not dir_list[index - 1].endswith(".mp4")):
+        fadeThisImage = "fade"
     
-    if(file.endswith(".mov")):
+
+    
+    if(file.endswith(".mp4")):
         image = """
-        <video width="1920" class="mySlides fade" src="http://absolute/""" + os.path.dirname(__file__)+"/" + imagesPath + file + """">
+        <video width="1920" class="mySlides" src="http://absolute/""" + os.path.dirname(__file__)+"/" + imagesPath + file + """">
                         
                         </video>
                         
@@ -25,7 +30,7 @@ for file in dir_list:
                         """
     else:
         image = """
-            <div class="mySlides fade">
+            <div class="mySlides """ + fadeThisImage + """">
             <img src="http://absolute/""" + os.path.realpath(os.path.dirname(__file__))+"/" + imagesPath + file + """" style="width:100%" >
             </div>
             """
@@ -52,7 +57,7 @@ def createHTML(images):
                     }
                 .fade {
                     animation-name: fade;
-                    animation-duration: 1.5s;
+                    animation-duration: .5s;
                     }
                 @keyframes fade {
                     from {opacity: .4}
@@ -65,7 +70,7 @@ def createHTML(images):
         """ + images + """
 
             
-        </div>
+    </div>
     <script>
 
         let slideIndex = 0;
@@ -85,7 +90,7 @@ def createHTML(images):
                     slides[slideIndex-1].play()
                     setTimeout(showSlides, parseInt(slides[slideIndex-1].duration) * 1000);
                 } else {
-                setTimeout(showSlides, 30000);
+                setTimeout(showSlides, 3000);
                 }
             
             
